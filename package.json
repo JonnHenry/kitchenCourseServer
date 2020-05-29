@@ -1,0 +1,28 @@
+{
+  "name": "kitchencourseserver",
+  "version": "1.0.0",
+  "description": "Servidor para Kitchen Course",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JonnHenry/kitchenCourseServer.git"
+  },
+  "keywords": [
+    "Servidor"
+  ],
+  "author": "Jonnathan Campoberde",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JonnHenry/kitchenCourseServer/issues"
+  },
+  "homepage": "https://github.com/JonnHenry/kitchenCourseServer#readme",
+  "dependencies": {
+    "bcrypt": "^4.0.1",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.9.16"
+  }
+}
