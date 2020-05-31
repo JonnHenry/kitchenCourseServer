@@ -1,14 +1,15 @@
 import jwt from 'jsonwebtoken';
+import IUserPayload from '../interfaces/IUser.payload';
 
 
 export default class Token {
 
-    private static seed: string = 'este-es-el-seed-de-mi-app-secreto';
-    private static caducidad: string = '30d';
+    private static seed: string = 'kitchenCourse';
+    private static caducidad: string = '1h';
 
     constructor() { }
 
-    static getJwtToken( payload: any ): string {
+    static getJwtToken( payload: IUserPayload): string {
         return jwt.sign({
             usuario: payload
         }, this.seed, { expiresIn: this.caducidad });
