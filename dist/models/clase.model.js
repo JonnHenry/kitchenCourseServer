@@ -7,12 +7,16 @@ const claseSchema = new mongoose_1.Schema({
         type: String,
         required: [true, 'El nombre es necesario']
     },
+    orden: {
+        type: Number,
+        required: [true, 'El orden es necesario']
+    },
     descripcion: {
         type: String,
         default: '',
         required: [true, 'La descripcion es necesaria para la clase']
     },
-    calificacion: {
+    id: {
         type: Number,
         unique: true,
         required: [true, 'El correo es necesario']
