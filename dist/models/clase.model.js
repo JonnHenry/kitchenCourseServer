@@ -17,7 +17,12 @@ const claseSchema = new mongoose_1.Schema({
         unique: true,
         required: [true, 'El correo es necesario']
     },
-    comentarios: [{
+    urlVideo: {
+        type: String,
+        required: [true, 'El video es necesario para la clase']
+    },
+    comentarios: [
+        {
             usuario: {
                 type: mongoose_1.Schema.Types.ObjectId,
                 ref: 'Usuario',
@@ -27,6 +32,7 @@ const claseSchema = new mongoose_1.Schema({
                 type: String,
                 default: ''
             }
-        }]
+        }
+    ]
 });
 exports.Clase = mongoose_1.model('Clase', claseSchema);
