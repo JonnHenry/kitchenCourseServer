@@ -77,7 +77,7 @@ ClaseRoutes.post('/:idClase/comentario',verificaToken,(req: any, res: Response)=
             });
         }
         const calificacionActual = (claseDB.calificacion+body.calificacion)/2
-        claseDB.calificacion = calificacionActual;
+        claseDB.calificacion = calificacionActual || claseDB.calificacion;
         claseDB.comentarios.push(usuarioComentario);
         claseDB.save()
         .then(()=>{
