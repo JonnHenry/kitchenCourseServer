@@ -35,4 +35,4 @@ const claseSchema = new Schema({
 
 
 
-export const Clases = model<IClase>('Clase',claseSchema)
+export const Clase = model<IClase>('Clase',claseSchema)
