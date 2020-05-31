@@ -8,6 +8,10 @@ const claseSchema = new Schema({
         type: String,
         required: [ true, 'El nombre es necesario' ]
     },
+    orden:{
+        type: Number,
+        required: [ true, 'El orden es necesario']
+    },
     descripcion: {
         type: String,
         default: '',
