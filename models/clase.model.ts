@@ -17,7 +17,7 @@ const claseSchema = new Schema({
         default: '',
         required: [ true, 'La descripcion es necesaria para la clase' ]
     },
-    calificacion: {
+    id: {
         type: Number,
         unique: true,
         required: [ true, 'El correo es necesario' ]
