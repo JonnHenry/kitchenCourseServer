@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Clases = void 0;
+exports.Clase = void 0;
 const mongoose_1 = require("mongoose");
 const claseSchema = new mongoose_1.Schema({
     nombre: {
@@ -29,4 +29,4 @@ const claseSchema = new mongoose_1.Schema({
             }
         }]
 });
-exports.Clases = mongoose_1.model('Clase', claseSchema);
+exports.Clase = mongoose_1.model('Clase', claseSchema);

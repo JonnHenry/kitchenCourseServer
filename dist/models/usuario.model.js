@@ -30,6 +30,10 @@ const usuarioSchema = new mongoose_1.Schema({
     sexo: {
         type: String,
         required: [true, 'El sexo del usuario es necesario']
+    },
+    habilitado: {
+        type: Boolean,
+        default: true
     }
 });
 usuarioSchema.method('compararPassword', function (password = '') {

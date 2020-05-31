@@ -28,6 +28,10 @@ const usuarioSchema = new Schema({
     sexo: {
         type: String,
         required: [ true, 'El sexo del usuario es necesario']
+    },
+    habilitado: {
+        type: Boolean,
+        default: true
     }
 
 });
@@ -42,6 +46,5 @@ usuarioSchema.method('compararPassword', function( password: string = ''): boole
     }
 
 });
-
 
 export const Usuario = model<IUsuario>('Usuario',usuarioSchema)

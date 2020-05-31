@@ -7,5 +7,6 @@ export default interface IUsuario extends Document{
     password: String; 
     celular: String;
     sexo: String; 
+    habilitado: Boolean;
     compararPassword(password: string): boolean;
 }
