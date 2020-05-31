@@ -33,7 +33,6 @@ const usuarioSchema = new Schema({
         type: Boolean,
         default: true
     }
-
 });
 
 

@@ -3,4 +3,5 @@ export default interface IUserPayload{
     _id: string
     avatar: String;
     email: String; 
+    sexo: String;
 }

@@ -37,6 +37,7 @@
     "@types/cors": "^2.8.6",
     "@types/express-fileupload": "^1.1.3",
     "@types/jsonwebtoken": "^8.5.0",
-    "@types/mongoose": "^5.7.21"
+    "@types/mongoose": "^5.7.21",
+    "@types/uniqid": "^5.2.0"
   }
 }

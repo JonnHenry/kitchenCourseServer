@@ -18,16 +18,21 @@ const claseSchema = new Schema({
         unique: true,
         required: [ true, 'El correo es necesario' ]
     },
-    comentarios: [{
-        usuario: {
-            type: Schema.Types.ObjectId,
-            ref: 'Usuario',
-            required: [ true, 'Debe de existir una referencia a un usuario' ]
-        },
-        comentario: {
-            type: String,
-            default: ''
-        }
+    urlVideo:{
+        type: String,
+        required: [ true, 'El video es necesario para la clase' ]
+    },
+    comentarios: [
+        {
+            usuario: {
+                type: Schema.Types.ObjectId,
+                ref: 'Usuario',
+                required: [ true, 'Debe de existir una referencia a un usuario' ]
+            },
+            comentario: {
+                type: String,
+                default: ''
+            }
 
     }]
 
