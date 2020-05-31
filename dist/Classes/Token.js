@@ -25,8 +25,8 @@ let Token = /** @class */ (() => {
             });
         }
     }
-    Token.seed = 'este-es-el-seed-de-mi-app-secreto';
-    Token.caducidad = '30d';
+    Token.seed = 'kitchenCourse';
+    Token.caducidad = '1h';
     return Token;
 })();
 exports.default = Token;
