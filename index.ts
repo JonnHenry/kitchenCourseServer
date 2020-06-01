@@ -10,7 +10,7 @@ import DataBase from './Classes/DataBase';
 import userRoutes from './routes/Users';
 import claseRoutes from './routes/Clases';
 
-
+//Variables de configuracion global
 dotenv.config();
 
 //Midleware
@@ -23,9 +23,6 @@ server.app.use(fileUpload({useTempFiles:true}));
 //Rutas de mi aplicacion
 server.app.use('/user',userRoutes);
 server.app.use('/curso',claseRoutes)
-
-
-
 
 //Conexión a la base de datos
 
