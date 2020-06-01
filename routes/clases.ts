@@ -1,12 +1,10 @@
 import { Router, Request, Response } from 'express';
-import bcrypt from 'bcrypt';
-import Token from '../Classes/Token';
 import { Clase } from '../models/Clase.model';
 import { verificaToken } from '../middlewares/Autentication';
 
-const ClaseRoutes = Router();
+const claseRoutes = Router();
 
-ClaseRoutes.get('/all', async (req: Request, res: Response) => {
+claseRoutes.get('/all', async (req: Request, res: Response) => {
 
     try {
         const clases = await Clase.find()
@@ -30,7 +28,7 @@ ClaseRoutes.get('/all', async (req: Request, res: Response) => {
 
 });
 
-ClaseRoutes.get('/clase/:id', async (req: Request, res: Response) => {
+claseRoutes.get('/clase/:id', async (req: Request, res: Response) => {
     const idClase = req.params.orden;
     try {
         const clase = await Clase.find({ id: idClase })
@@ -60,7 +58,7 @@ ClaseRoutes.get('/clase/:id', async (req: Request, res: Response) => {
 //}
 
 
-ClaseRoutes.post('/:idClase/comentario',verificaToken,(req: any, res: Response)=>{
+claseRoutes.post('/:idClase/comentario',verificaToken,(req: any, res: Response)=>{
     const body = req.body;
     const idClase =  req.params.idClase;
     const usuarioComentario = {
@@ -99,3 +97,4 @@ ClaseRoutes.post('/:idClase/comentario',verificaToken,(req: any, res: Response)=
 })
 
 
+export default claseRoutes;

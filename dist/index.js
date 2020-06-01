@@ -30,6 +30,8 @@ const body_parser_1 = __importDefault(require("body-parser"));
 const express_fileupload_1 = __importDefault(require("express-fileupload"));
 const dotenv = __importStar(require("dotenv"));
 const DataBase_1 = __importDefault(require("./Classes/DataBase"));
+const Users_1 = __importDefault(require("./routes/Users"));
+const Clases_1 = __importDefault(require("./routes/Clases"));
 dotenv.config();
 //Midleware
 const server = new Server_1.default(Number(process.env.PORT));
@@ -38,6 +40,8 @@ server.app.use(cors_1.default());
 server.app.use(body_parser_1.default.json());
 server.app.use(express_fileupload_1.default({ useTempFiles: true }));
 //Rutas de mi aplicacion
+server.app.use('/user', Users_1.default);
+server.app.use('/curso', Clases_1.default);
 //Conexión a la base de datos
 const conexion = new DataBase_1.default(Number(process.env.DB_PORT) || 0, process.env.DB_USER || '', process.env.DB_PASS || '', process.env.DB_HOST || '');
 if (conexion) {

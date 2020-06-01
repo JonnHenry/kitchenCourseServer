@@ -50,7 +50,7 @@ userRoutes.post('login', (req: Request, res: Response) => {
 
 });
 
-
+//Sube la foto de un usuario
 userRoutes.post('/upload',[verificaToken],async (req: any, res: Response)=>{
 
     if (!req.files){
@@ -236,3 +236,5 @@ userRoutes.get('/imagen/:userid/:img', verificaToken,(req: any, res: Response) =
     res.sendFile( pathFoto );
 
 });
+
+export default userRoutes;

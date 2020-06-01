@@ -12,8 +12,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const Clase_model_1 = require("../models/Clase.model");
 const Autentication_1 = require("../middlewares/Autentication");
-const ClaseRoutes = express_1.Router();
-ClaseRoutes.get('/all', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const claseRoutes = express_1.Router();
+claseRoutes.get('/all', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const clases = yield Clase_model_1.Clase.find()
             .select('orden nombre descripcion calificacion')
@@ -33,7 +33,7 @@ ClaseRoutes.get('/all', (req, res) => __awaiter(void 0, void 0, void 0, function
         });
     }
 }));
-ClaseRoutes.get('/clase/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+claseRoutes.get('/clase/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const idClase = req.params.orden;
     try {
         const clase = yield Clase_model_1.Clase.find({ id: idClase })
@@ -59,7 +59,7 @@ ClaseRoutes.get('/clase/:id', (req, res) => __awaiter(void 0, void 0, void 0, fu
 //  comentario: comentario
 //  calificacion: calificacion Number !!Es la califcacion que el usuario ha dado    
 //}
-ClaseRoutes.post('/:idClase/comentario', Autentication_1.verificaToken, (req, res) => {
+claseRoutes.post('/:idClase/comentario', Autentication_1.verificaToken, (req, res) => {
     const body = req.body;
     const idClase = req.params.idClase;
     const usuarioComentario = {
@@ -92,3 +92,4 @@ ClaseRoutes.post('/:idClase/comentario', Autentication_1.verificaToken, (req, re
         });
     });
 });
+exports.default = claseRoutes;

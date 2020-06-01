@@ -204,3 +204,4 @@ userRoutes.get('/imagen/:userid/:img', Autentication_1.verificaToken, (req, res)
     const pathFoto = fileSystem.getFotoUrl(userId, img, req.usuario.sexo);
     res.sendFile(pathFoto);
 });
+exports.default = userRoutes;

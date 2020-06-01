@@ -7,6 +7,9 @@ import bodyParser from 'body-parser';
 import fileUpload from 'express-fileupload';
 import * as dotenv from "dotenv";
 import DataBase from './Classes/DataBase';
+import userRoutes from './routes/Users';
+import claseRoutes from './routes/Clases';
+
 
 dotenv.config();
 
@@ -18,6 +21,9 @@ server.app.use(bodyParser.json());
 server.app.use(fileUpload({useTempFiles:true}));
 
 //Rutas de mi aplicacion
+server.app.use('/user',userRoutes);
+server.app.use('/curso',claseRoutes)
+
 
 
 
