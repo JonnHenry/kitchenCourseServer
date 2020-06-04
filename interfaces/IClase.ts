@@ -1,7 +1,8 @@
 import { Document } from "mongoose";
 
 export default interface IClase extends Document{
-    nombre: String;
+    id: Number;
+    titulo: String;
     descripcion: String;
     calificacion: Number;
     urlVideo: String;

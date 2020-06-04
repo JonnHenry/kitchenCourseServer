@@ -102,11 +102,13 @@ claseRoutes.post('/:idClase/comentario',verificaToken,(req: any, res: Response)=
 claseRoutes.post('/create',(req: Request,res: Response)=>{
     const body = req.body;
     const clase = {
+        id: body.id,
         titulo: body.titulo,
         descripcion: body.descripcion,
-        id: body.id
-
-    }
+        urlVideo: body.urlVideo,
+        comentarios: []
+    };
+    
 
 
 

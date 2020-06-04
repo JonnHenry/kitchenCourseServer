@@ -96,9 +96,11 @@ claseRoutes.post('/:idClase/comentario', Autentication_1.verificaToken, (req, re
 claseRoutes.post('/create', (req, res) => {
     const body = req.body;
     const clase = {
+        id: body.id,
         titulo: body.titulo,
         descripcion: body.descripcion,
-        id: body.id
+        urlVideo: body.urlVideo,
+        comentarios: []
     };
 });
 exports.default = claseRoutes;

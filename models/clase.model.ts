@@ -22,6 +22,10 @@ const claseSchema = new Schema({
         type: String,
         required: [ true, 'El video es necesario para la clase' ]
     },
+    calificacion:{
+        type: Number,
+        default: 0
+    },
     comentarios: [
         {
             usuario: {
