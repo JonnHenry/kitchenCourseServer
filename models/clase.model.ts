@@ -27,7 +27,7 @@ const claseSchema = new Schema({
     },
     calificacion:{
         type: Number,
-        default: 0
+        default: 5
     },
     comentarios: [
         {

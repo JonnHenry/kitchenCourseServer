@@ -16,7 +16,7 @@ const claseRoutes = express_1.Router();
 claseRoutes.get('/all', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const clases = yield Clase_model_1.Clase.find()
-            .select('nombre descripcion calificacion')
+            .select('imagenClase nombre descripcion titulo calificacion id -_id')
             .sort({ id: 'asc' })
             .exec();
         res.status(200).json({

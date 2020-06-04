@@ -8,7 +8,7 @@ claseRoutes.get('/all', async (req: Request, res: Response) => {
 
     try {
         const clases = await Clase.find()
-            .select('nombre descripcion calificacion')
+            .select('imagenClase nombre descripcion titulo calificacion id -_id')
             .sort({ id: 'asc' })
             .exec();
 

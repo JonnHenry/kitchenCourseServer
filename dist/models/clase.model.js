@@ -26,7 +26,7 @@ const claseSchema = new mongoose_1.Schema({
     },
     calificacion: {
         type: Number,
-        default: 0
+        default: 5
     },
     comentarios: [
         {
