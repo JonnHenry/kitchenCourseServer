@@ -4,6 +4,8 @@ import fs from 'fs';
 import { UploadedFile } from 'express-fileupload';
 
 
+
+
 export default class FileSystem{
 
     constructor(){
@@ -61,7 +63,17 @@ export default class FileSystem{
 
     }
 
+    getFotoClase(imgClase: string){
+        var pathFoto = path.resolve( __dirname, '../../assets/img_clases/', imgClase);
+
+        const existe = fs.existsSync( pathFoto );
+        if ( !existe ) {
+            pathFoto = path.resolve( __dirname, '../../assets/img_clases/default.jpg');
+        }
+        return pathFoto;
+    }
 
 
-    
+
+
 }

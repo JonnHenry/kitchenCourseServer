@@ -8,10 +8,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const Clase_model_1 = require("../models/Clase.model");
 const Autentication_1 = require("../middlewares/Autentication");
+const FileSystem_1 = __importDefault(require("../Classes/FileSystem"));
+const fileSystem = new FileSystem_1.default();
 const claseRoutes = express_1.Router();
 claseRoutes.get('/all', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -34,7 +39,7 @@ claseRoutes.get('/all', (req, res) => __awaiter(void 0, void 0, void 0, function
     }
 }));
 //Se envia el id de la clase que igual es el orden de cada clase
-claseRoutes.get('/clase', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+claseRoutes.get('/clase/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const idClase = req.params.id;
     try {
         const clase = yield Clase_model_1.Clase.find({ id: idClase })
@@ -116,5 +121,11 @@ claseRoutes.post('/create', (req, res) => {
             mensaje: 'Verifique la información ingresada'
         });
     });
+});
+//Se envia en la url el nombre de la imagen de la clase
+claseRoutes.post('/get/img/:imagen', (req, res) => {
+    const paramImagen = req.params.imagen;
+    const pathFotoClase = fileSystem.getFotoClase(paramImagen);
+    res.sendFile(pathFotoClase);
 });
 exports.default = claseRoutes;

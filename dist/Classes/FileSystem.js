@@ -48,5 +48,13 @@ class FileSystem {
         }
         return pathFoto;
     }
+    getFotoClase(imgClase) {
+        var pathFoto = path_1.default.resolve(__dirname, '../../assets/img_clases/', imgClase);
+        const existe = fs_1.default.existsSync(pathFoto);
+        if (!existe) {
+            pathFoto = path_1.default.resolve(__dirname, '../../assets/img_clases/default.jpg');
+        }
+        return pathFoto;
+    }
 }
 exports.default = FileSystem;

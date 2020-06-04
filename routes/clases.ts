@@ -1,6 +1,9 @@
 import { Router, Request, Response } from 'express';
 import { Clase } from '../models/Clase.model';
 import { verificaToken } from '../middlewares/Autentication';
+import FileSystem from '../Classes/FileSystem';
+
+const fileSystem = new FileSystem();
 
 const claseRoutes = Router();
 
@@ -29,7 +32,7 @@ claseRoutes.get('/all', async (req: Request, res: Response) => {
 });
 
 //Se envia el id de la clase que igual es el orden de cada clase
-claseRoutes.get('/clase', async (req: Request, res: Response) => {
+claseRoutes.get('/clase/:id', async (req: Request, res: Response) => {
     const idClase = req.params.id;
     try {
         const clase = await Clase.find({ id: idClase })
@@ -125,11 +128,15 @@ claseRoutes.post('/create', (req: Request, res: Response) => {
             mensaje: 'Verifique la información ingresada'
         })
     })
+})
 
 
 
-
-
+//Se envia en la url el nombre de la imagen de la clase
+claseRoutes.post('/get/img/:imagen',(req:Request, res: Response)=>{
+    const paramImagen = req.params.imagen;
+    const pathFotoClase = fileSystem.getFotoClase(paramImagen);
+    res.sendFile( pathFotoClase );
 })
 
 export default claseRoutes;
