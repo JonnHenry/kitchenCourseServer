@@ -59,39 +59,38 @@ claseRoutes.get('/clase', async (req: Request, res: Response) => {
 //}
 
 
-claseRoutes.post('/:idClase/comentario',verificaToken,(req: any, res: Response)=>{
+claseRoutes.post('/:idClase/comentario', verificaToken, (req: any, res: Response) => {
     const body = req.body;
-    const idClase =  req.params.idClase;
+    const idClase = req.params.idClase;
     const usuarioComentario = {
         usuario: req.usuario._id,
         comentario: body.comentario,
     }
 
-    Clase.findOne({id: idClase}, (err, claseDB)=>{
+    Clase.findOne({ id: idClase }, (err, claseDB) => {
         if (err || !claseDB) {
             return res.status(200).json({
                 ok: false,
-                token: '',
                 mensaje: 'El clase no se encuentra registrado, verifique los datos'
             });
         }
-        const calificacionActual = (claseDB.calificacion+body.calificacion)/2
+        const calificacionActual = (claseDB.calificacion + body.calificacion) / 2
         claseDB.calificacion = calificacionActual || claseDB.calificacion;
         claseDB.comentarios.push(usuarioComentario);
         claseDB.save()
-        .then(()=>{
-            res.status(200).json({
-                ok: true,
-                mensaje: 'El comentario se ha registrado correctamente'
+            .then(() => {
+                res.status(200).json({
+                    ok: true,
+                    mensaje: 'El comentario se ha registrado correctamente'
+                })
             })
-        })
 
-        .catch(()=>{
-            return res.status(400).json({
-                ok: false,
-                mensaje: 'Verifique los datos ingresados'
-            });
-        })
+            .catch(() => {
+                return res.status(400).json({
+                    ok: false,
+                    mensaje: 'Verifique los datos ingresados'
+                });
+            })
 
     });
 
@@ -99,16 +98,35 @@ claseRoutes.post('/:idClase/comentario',verificaToken,(req: any, res: Response)=
 
 
 
-claseRoutes.post('/create',(req: Request,res: Response)=>{
+claseRoutes.post('/create', (req: Request, res: Response) => {
     const body = req.body;
     const clase = {
         id: body.id,
         titulo: body.titulo,
         descripcion: body.descripcion,
-        nombreVideo: body.urlVideo,
+        nombreVideo: body.nombreVideo,
         comentarios: []
     };
-    
+    console.log(clase)
+
+    Clase.create(clase).then(clase => {
+
+        res.status(200).json({
+            ok: true,
+            clase,
+            mensaje: 'La clase se ha registrado correctamente'
+        })
+    })
+
+    .catch(err=>{
+        res.status(200).json({
+            ok: false,
+            clase: {},
+            mensaje: 'Verifique la información ingresada'
+        })
+    })
+
+
 
 
 

@@ -10,13 +10,16 @@ const claseSchema = new Schema({
     },
     descripcion: {
         type: String,
-        default: '',
-        required: [ true, 'La descripcion es necesaria para la clase' ]
+        default: ''
     },
     id: {
         type: Number,
         unique: true,
         required: [ true, 'El correo es necesario' ]
+    },
+    imagenClase:{
+        type: String,
+        required: [ true, 'La imagen de la clase es necesaria para la clase' ]
     },
     nombreVideo:{
         type: String,

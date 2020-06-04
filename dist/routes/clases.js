@@ -71,7 +71,6 @@ claseRoutes.post('/:idClase/comentario', Autentication_1.verificaToken, (req, re
         if (err || !claseDB) {
             return res.status(200).json({
                 ok: false,
-                token: '',
                 mensaje: 'El clase no se encuentra registrado, verifique los datos'
             });
         }
@@ -99,8 +98,23 @@ claseRoutes.post('/create', (req, res) => {
         id: body.id,
         titulo: body.titulo,
         descripcion: body.descripcion,
-        nombreVideo: body.urlVideo,
+        nombreVideo: body.nombreVideo,
         comentarios: []
     };
+    console.log(clase);
+    Clase_model_1.Clase.create(clase).then(clase => {
+        res.status(200).json({
+            ok: true,
+            clase,
+            mensaje: 'La clase se ha registrado correctamente'
+        });
+    })
+        .catch(err => {
+        res.status(200).json({
+            ok: false,
+            clase: {},
+            mensaje: 'Verifique la información ingresada'
+        });
+    });
 });
 exports.default = claseRoutes;
