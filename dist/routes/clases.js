@@ -16,7 +16,7 @@ const claseRoutes = express_1.Router();
 claseRoutes.get('/all', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const clases = yield Clase_model_1.Clase.find()
-            .select('orden nombre descripcion calificacion')
+            .select('nombre descripcion calificacion')
             .sort({ id: 'asc' })
             .exec();
         res.status(200).json({
@@ -33,8 +33,9 @@ claseRoutes.get('/all', (req, res) => __awaiter(void 0, void 0, void 0, function
         });
     }
 }));
-claseRoutes.get('/clase/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const idClase = req.params.orden;
+//Se envia el id de la clase que igual es el orden de cada clase
+claseRoutes.get('/clase', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const idClase = req.params.id;
     try {
         const clase = yield Clase_model_1.Clase.find({ id: idClase })
             .populate('comentarios.usuario', '-password -email -celular -sexo -habilitado')
@@ -91,5 +92,13 @@ claseRoutes.post('/:idClase/comentario', Autentication_1.verificaToken, (req, re
             });
         });
     });
+});
+claseRoutes.post('/create', (req, res) => {
+    const body = req.body;
+    const clase = {
+        titulo: body.titulo,
+        descripcion: body.descripcion,
+        id: body.id
+    };
 });
 exports.default = claseRoutes;

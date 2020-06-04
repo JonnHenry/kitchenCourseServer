@@ -3,13 +3,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Clase = void 0;
 const mongoose_1 = require("mongoose");
 const claseSchema = new mongoose_1.Schema({
-    nombre: {
+    titulo: {
         type: String,
         required: [true, 'El nombre es necesario']
-    },
-    orden: {
-        type: Number,
-        required: [true, 'El orden es necesario']
     },
     descripcion: {
         type: String,

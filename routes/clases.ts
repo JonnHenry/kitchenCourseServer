@@ -8,7 +8,7 @@ claseRoutes.get('/all', async (req: Request, res: Response) => {
 
     try {
         const clases = await Clase.find()
-            .select('orden nombre descripcion calificacion')
+            .select('nombre descripcion calificacion')
             .sort({ id: 'asc' })
             .exec();
 
@@ -28,8 +28,9 @@ claseRoutes.get('/all', async (req: Request, res: Response) => {
 
 });
 
-claseRoutes.get('/clase/:id', async (req: Request, res: Response) => {
-    const idClase = req.params.orden;
+//Se envia el id de la clase que igual es el orden de cada clase
+claseRoutes.get('/clase', async (req: Request, res: Response) => {
+    const idClase = req.params.id;
     try {
         const clase = await Clase.find({ id: idClase })
             .populate('comentarios.usuario', '-password -email -celular -sexo -habilitado')
@@ -96,5 +97,19 @@ claseRoutes.post('/:idClase/comentario',verificaToken,(req: any, res: Response)=
 
 })
 
+
+
+claseRoutes.post('/create',(req: Request,res: Response)=>{
+    const body = req.body;
+    const clase = {
+        titulo: body.titulo,
+        descripcion: body.descripcion,
+        id: body.id
+
+    }
+
+
+
+})
 
 export default claseRoutes;

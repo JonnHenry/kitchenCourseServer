@@ -4,13 +4,9 @@ import IClase from '../interfaces/IClase';
 
 const claseSchema = new Schema({
     
-    nombre: {
+    titulo: {
         type: String,
         required: [ true, 'El nombre es necesario' ]
-    },
-    orden:{
-        type: Number,
-        required: [ true, 'El orden es necesario']
     },
     descripcion: {
         type: String,

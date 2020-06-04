@@ -37,7 +37,6 @@ class FileSystem {
     }
     getFotoUrl(userId, img, sexo) {
         const pathFoto = path_1.default.resolve(__dirname, '../uploads/users', userId, img);
-        console.log(pathFoto);
         const existe = fs_1.default.existsSync(pathFoto);
         if (!existe) {
             if (sexo == 'masculino') {

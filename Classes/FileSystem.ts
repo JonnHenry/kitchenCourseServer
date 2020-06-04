@@ -47,7 +47,6 @@ export default class FileSystem{
 
     getFotoUrl( userId: string, img: string, sexo: string ) {
         const pathFoto = path.resolve( __dirname, '../uploads/users', userId, img );
-        console.log(pathFoto)
 
         const existe = fs.existsSync( pathFoto );
         if ( !existe ) {
@@ -62,4 +61,7 @@ export default class FileSystem{
 
     }
 
+
+
+    
 }
