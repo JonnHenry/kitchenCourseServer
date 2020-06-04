@@ -18,7 +18,7 @@ export default class FileSystem{
                 if ( err ) {
                     reject(err);
                 } else {
-                    resolve();
+                    resolve(nombreArchivo);
                 }
             })
 
@@ -37,7 +37,6 @@ export default class FileSystem{
     private crearCarpetaUsuario( userId: string ) {
         const pathUser = path.resolve(  __dirname, '../uploads/users/', userId );
         const existe = fs.existsSync( pathUser );
-
         if ( !existe ) {
             fs.mkdirSync( pathUser );
         }
@@ -48,13 +47,14 @@ export default class FileSystem{
 
     getFotoUrl( userId: string, img: string, sexo: string ) {
         const pathFoto = path.resolve( __dirname, '../uploads/users', userId, img );
+        console.log(pathFoto)
 
         const existe = fs.existsSync( pathFoto );
         if ( !existe ) {
             if (sexo=='masculino'){
-                return path.resolve( __dirname, '../assets/masculino.png' );
+                return path.resolve( __dirname, '../../assets/masculino.png' );
             }else{
-                return path.resolve( __dirname, '../assets/femenino.png' );
+                return path.resolve( __dirname, '../../assets/femenino.png' );
             }   
         }
         

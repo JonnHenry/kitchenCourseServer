@@ -12,7 +12,7 @@ const userRoutes = Router();
 const fileSystem = new FileSystem();
 
 //Iniciar sesion de un usuario
-userRoutes.post('login', (req: Request, res: Response) => {
+userRoutes.post('/login', (req: Request, res: Response) => {
     const body = req.body;
     Usuario.findOne({ email: body.email }, (err, userDB: IUsuario) => {
 
@@ -50,7 +50,7 @@ userRoutes.post('login', (req: Request, res: Response) => {
 
 });
 
-//Sube la foto de un usuario
+//Sube la foto de un usuario y se debe de actualiza el token
 userRoutes.post('/upload',[verificaToken],async (req: any, res: Response)=>{
 
     if (!req.files){
@@ -79,7 +79,7 @@ userRoutes.post('/upload',[verificaToken],async (req: any, res: Response)=>{
         }); 
     }
 
-    await fileSystem.guardarImagen(file, req.usuario._id, req.usuario.sexo)
+    const nombreAvatar = await fileSystem.guardarImagen(file, req.usuario._id, req.usuario.sexo)
 
     Usuario.findOne({ email: req.usuario.email }, (err, userDB) => {
         if (err || !userDB) {
@@ -90,7 +90,7 @@ userRoutes.post('/upload',[verificaToken],async (req: any, res: Response)=>{
             });
         }
 
-        userDB.avatar = file.name || req.usuario.avatar;
+        userDB.avatar = nombreAvatar || req.usuario.avatar;
 
         userDB.save()
             .then(() => {
@@ -135,7 +135,6 @@ userRoutes.post('/create', (req: Request, res: Response) => {
         sexo: body.sexo
     };
 
-
     Usuario.create(usuario).then(userDB => {
         console.log(userDB)
         const tokenUser = Token.getJwtToken({
@@ -145,7 +144,7 @@ userRoutes.post('/create', (req: Request, res: Response) => {
             email: userDB.email,
             sexo: userDB.sexo
         })
-        
+
         res.status(200).json({
             ok: true,
             token: tokenUser,
@@ -226,15 +225,36 @@ userRoutes.delete('/delete',verificaToken,(req: Request, res: Response)=>{
     })
 });
 
+userRoutes.post('/allow',verificaToken,(req: Request, res: Response)=>{
+    const body = req.body;
+
+    Usuario.update({email: body.email}, {habilitado: true}, function(err, userDB){
+        if (err || !userDB){
+            return res.status(500).json({
+                ok: false,
+                token: '',
+                mensaje: 'Error al habilitar al usuario'
+            });
+        }
+        return res.status(200).json({
+            ok: true,
+            token: '',
+            mensaje: 'El usuario se ha habilitado con exito'
+        });
+    })
+});
 
 
-userRoutes.get('/imagen/:userid/:img', verificaToken,(req: any, res: Response) => {
 
-    const userId = req.params.userid;
-    const img    = req.params.img;
+
+//Obtener una imagen de un usuario
+userRoutes.get('/imagen/avatar', verificaToken,(req: any, res: Response) => {
+
+    const userId = req.usuario._id;
+    const img    = req.usuario.avatar;
 
     const pathFoto = fileSystem.getFotoUrl( userId, img, req.usuario.sexo );
-
+    
     res.sendFile( pathFoto );
 
 });

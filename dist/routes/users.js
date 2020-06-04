@@ -21,7 +21,7 @@ const FileSystem_1 = __importDefault(require("../Classes/FileSystem"));
 const userRoutes = express_1.Router();
 const fileSystem = new FileSystem_1.default();
 //Iniciar sesion de un usuario
-userRoutes.post('login', (req, res) => {
+userRoutes.post('/login', (req, res) => {
     const body = req.body;
     Usuario_model_1.Usuario.findOne({ email: body.email }, (err, userDB) => {
         if (err || !userDB || !userDB.habilitado) {
@@ -54,7 +54,7 @@ userRoutes.post('login', (req, res) => {
         }
     });
 });
-//Sube la foto de un usuario
+//Sube la foto de un usuario y se debe de actualiza el token
 userRoutes.post('/upload', [Autentication_1.verificaToken], (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     if (!req.files) {
         return res.status(400).json({
@@ -78,7 +78,7 @@ userRoutes.post('/upload', [Autentication_1.verificaToken], (req, res) => __awai
             mensaje: 'Lo que subió no es una imagen'
         });
     }
-    yield fileSystem.guardarImagen(file, req.usuario._id, req.usuario.sexo);
+    const nombreAvatar = yield fileSystem.guardarImagen(file, req.usuario._id, req.usuario.sexo);
     Usuario_model_1.Usuario.findOne({ email: req.usuario.email }, (err, userDB) => {
         if (err || !userDB) {
             return res.status(200).json({
@@ -87,7 +87,7 @@ userRoutes.post('/upload', [Autentication_1.verificaToken], (req, res) => __awai
                 mensaje: 'El usuario no se encuentra registrado, verifique los datos'
             });
         }
-        userDB.avatar = file.name || req.usuario.avatar;
+        userDB.avatar = nombreAvatar || req.usuario.avatar;
         userDB.save()
             .then(() => {
             const tokenUser = Token_1.default.getJwtToken({
@@ -200,9 +200,27 @@ userRoutes.delete('/delete', Autentication_1.verificaToken, (req, res) => {
         });
     });
 });
-userRoutes.get('/imagen/:userid/:img', Autentication_1.verificaToken, (req, res) => {
-    const userId = req.params.userid;
-    const img = req.params.img;
+userRoutes.post('/allow', Autentication_1.verificaToken, (req, res) => {
+    const body = req.body;
+    Usuario_model_1.Usuario.update({ email: body.email }, { habilitado: true }, function (err, userDB) {
+        if (err || !userDB) {
+            return res.status(500).json({
+                ok: false,
+                token: '',
+                mensaje: 'Error al habilitar al usuario'
+            });
+        }
+        return res.status(200).json({
+            ok: true,
+            token: '',
+            mensaje: 'El usuario se ha habilitado con exito'
+        });
+    });
+});
+//Obtener una imagen de un usuario
+userRoutes.get('/imagen/avatar', Autentication_1.verificaToken, (req, res) => {
+    const userId = req.usuario._id;
+    const img = req.usuario.avatar;
     const pathFoto = fileSystem.getFotoUrl(userId, img, req.usuario.sexo);
     res.sendFile(pathFoto);
 });

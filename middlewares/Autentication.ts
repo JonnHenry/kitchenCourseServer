@@ -14,7 +14,8 @@ export const verificaToken = ( req: any, res: Response, next: NextFunction  ) =>
         .catch( err => {
 
             res.json({
-                error: false,
+                ok: false,
+                token: '',
                 mensaje: 'El usuario no tiene acceso'
             });
 

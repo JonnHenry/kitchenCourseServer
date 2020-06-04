@@ -14,7 +14,8 @@ exports.verificaToken = (req, res, next) => {
     })
         .catch(err => {
         res.json({
-            error: false,
+            ok: false,
+            token: '',
             mensaje: 'El usuario no tiene acceso'
         });
     });

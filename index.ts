@@ -18,7 +18,7 @@ const server = new Server(Number(process.env.PORT));
 server.app.use(bodyParser.urlencoded({ extended: true }));
 server.app.use(cors());
 server.app.use(bodyParser.json());
-server.app.use(fileUpload({ useTempFiles: true }));
+server.app.use(fileUpload({ useTempFiles: false }));
 
 //Rutas de mi aplicacion
 server.app.use('/user', userRoutes);
@@ -36,6 +36,7 @@ database.conectarDB()
             console.log('Error al iniciar a la base de datos')
         }
     })
+    
     .catch((err: any) => {
         console.log('Error el iniciar la base de datos')
     })

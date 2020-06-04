@@ -39,7 +39,7 @@ const server = new Server_1.default(Number(process.env.PORT));
 server.app.use(body_parser_1.default.urlencoded({ extended: true }));
 server.app.use(cors_1.default());
 server.app.use(body_parser_1.default.json());
-server.app.use(express_fileupload_1.default({ useTempFiles: true }));
+server.app.use(express_fileupload_1.default({ useTempFiles: false }));
 //Rutas de mi aplicacion
 server.app.use('/user', Users_1.default);
 server.app.use('/curso', Clases_1.default);

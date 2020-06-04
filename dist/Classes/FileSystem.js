@@ -17,7 +17,7 @@ class FileSystem {
                     reject(err);
                 }
                 else {
-                    resolve();
+                    resolve(nombreArchivo);
                 }
             });
         });
@@ -37,13 +37,14 @@ class FileSystem {
     }
     getFotoUrl(userId, img, sexo) {
         const pathFoto = path_1.default.resolve(__dirname, '../uploads/users', userId, img);
+        console.log(pathFoto);
         const existe = fs_1.default.existsSync(pathFoto);
         if (!existe) {
             if (sexo == 'masculino') {
-                return path_1.default.resolve(__dirname, '../assets/masculino.png');
+                return path_1.default.resolve(__dirname, '../../assets/masculino.png');
             }
             else {
-                return path_1.default.resolve(__dirname, '../assets/femenino.png');
+                return path_1.default.resolve(__dirname, '../../assets/femenino.png');
             }
         }
         return pathFoto;

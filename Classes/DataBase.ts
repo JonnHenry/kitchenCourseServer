@@ -16,7 +16,7 @@ export default class DataBase {
 
     conectarDB() {
         const uri = `mongodb://${this.user}:${this.password}@${this.hostDB}:${this.port}/kitchenCourse`;
-        console.log(uri)
+        
         return new Promise(async (resolve, reject)=>{
             await moongose.connect(uri, { useNewUrlParser: true, useCreateIndex: true,useUnifiedTopology: true }, (error) => {
                 if (error) {

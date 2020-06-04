@@ -22,7 +22,6 @@ class DataBase {
     }
     conectarDB() {
         const uri = `mongodb://${this.user}:${this.password}@${this.hostDB}:${this.port}/kitchenCourse`;
-        console.log(uri);
         return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
             yield mongoose_1.default.connect(uri, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true }, (error) => {
                 if (error) {
