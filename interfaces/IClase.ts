@@ -5,7 +5,7 @@ export default interface IClase extends Document{
     titulo: String;
     descripcion: String;
     calificacion: Number;
-    urlVideo: String;
+    nombreVideo: String;
     comentarios: [{
         usuario: String,
         comentario: String
