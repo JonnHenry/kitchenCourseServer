@@ -105,10 +105,10 @@ claseRoutes.post('/create',(req: Request,res: Response)=>{
         id: body.id,
         titulo: body.titulo,
         descripcion: body.descripcion,
-        urlVideo: body.urlVideo,
+        nombreVideo: body.urlVideo,
         comentarios: []
     };
-    
+
 
 
 

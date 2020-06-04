@@ -17,7 +17,7 @@ const claseSchema = new mongoose_1.Schema({
         unique: true,
         required: [true, 'El correo es necesario']
     },
-    urlVideo: {
+    nombreVideo: {
         type: String,
         required: [true, 'El video es necesario para la clase']
     },

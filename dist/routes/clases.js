@@ -99,7 +99,7 @@ claseRoutes.post('/create', (req, res) => {
         id: body.id,
         titulo: body.titulo,
         descripcion: body.descripcion,
-        urlVideo: body.urlVideo,
+        nombreVideo: body.urlVideo,
         comentarios: []
     };
 });
