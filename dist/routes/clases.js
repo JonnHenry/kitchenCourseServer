@@ -28,7 +28,7 @@ claseRoutes.get('/all', (req, res) => __awaiter(void 0, void 0, void 0, function
     catch (error) {
         res.status(500).json({
             ok: true,
-            clase: [],
+            clases: [],
             mensaje: 'Error al ejecutar la consulta'
         });
     }

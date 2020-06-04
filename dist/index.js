@@ -32,6 +32,7 @@ const dotenv = __importStar(require("dotenv"));
 const DataBase_1 = __importDefault(require("./Classes/DataBase"));
 const Users_1 = __importDefault(require("./routes/Users"));
 const Clases_1 = __importDefault(require("./routes/Clases"));
+//Variables de configuracion global
 dotenv.config();
 //Midleware
 const server = new Server_1.default(Number(process.env.PORT));
@@ -43,11 +44,17 @@ server.app.use(express_fileupload_1.default({ useTempFiles: true }));
 server.app.use('/user', Users_1.default);
 server.app.use('/curso', Clases_1.default);
 //Conexión a la base de datos
-const conexion = new DataBase_1.default(Number(process.env.DB_PORT) || 0, process.env.DB_USER || '', process.env.DB_PASS || '', process.env.DB_HOST || '');
-if (conexion) {
-    console.log('Base de datos iniciada correctamente');
-    server.startServer();
-}
-else {
-    console.log('Error al iniciar a la base de datos');
-}
+const database = new DataBase_1.default(Number(process.env.DB_PORT) || 0, process.env.DB_USER || '', process.env.DB_PASS || '', process.env.DB_HOST || '');
+database.conectarDB()
+    .then((conexion) => {
+    if (conexion == true) {
+        console.log('Base de datos iniciada correctamente');
+        server.startServer();
+    }
+    else {
+        console.log('Error al iniciar a la base de datos');
+    }
+})
+    .catch((err) => {
+    console.log('Error el iniciar la base de datos');
+});

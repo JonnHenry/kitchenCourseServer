@@ -7,7 +7,7 @@ export default class DataBase {
     private password: string;
     private hostDB: string;
 
-    constructor(port:number, user:string, password:string,hostDB:string) {
+    constructor(port: number, user: string, password: string, hostDB: string) {
         this.port = port;
         this.user = user;
         this.password = password;
@@ -15,14 +15,20 @@ export default class DataBase {
     }
 
     conectarDB() {
-        const uri = `mongodb://${this.user}:${this.password}@${this.hostDB}:${this.port}/kitchenCourse`
-        moongose.connect(uri, { useNewUrlParser: true, useCreateIndex: true }, (error) => {
-            if (error) {
-                return false
-            } else {
-                return true
-            }
-        });
+        const uri = `mongodb://${this.user}:${this.password}@${this.hostDB}:${this.port}/kitchenCourse`;
+        console.log(uri)
+        return new Promise(async (resolve, reject)=>{
+            await moongose.connect(uri, { useNewUrlParser: true, useCreateIndex: true,useUnifiedTopology: true }, (error) => {
+                if (error) {
+                    resolve(false)
+                } else {
+                    resolve(true)
+                }
+            })
+            reject(false)
+        })
+        
+        
     }
 
 }

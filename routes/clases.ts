@@ -20,7 +20,7 @@ claseRoutes.get('/all', async (req: Request, res: Response) => {
     } catch (error) {
         res.status(500).json({
             ok: true,
-            clase: [],
+            clases: [],
             mensaje: 'Error al ejecutar la consulta'
         })
 

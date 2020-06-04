@@ -126,16 +126,18 @@ userRoutes.post('/upload',[verificaToken],async (req: any, res: Response)=>{
 userRoutes.post('/create', (req: Request, res: Response) => {
     const body = req.body;
 
-    const user = {
+    const usuario = {
         nombre: body.nombre,
         avatar: body.avatar || body.sexo+'.png',
         email: body.email,
-        password: bcrypt.hashSync(req.body.password, 10),
+        password: bcrypt.hashSync(body.password,10),
         celular: body.celular,
         sexo: body.sexo
     };
 
-    Usuario.create(user).then(userDB => {
+
+    Usuario.create(usuario).then(userDB => {
+        console.log(userDB)
         const tokenUser = Token.getJwtToken({
             nombre: userDB.nombre,
             _id: userDB._id,
@@ -143,7 +145,7 @@ userRoutes.post('/create', (req: Request, res: Response) => {
             email: userDB.email,
             sexo: userDB.sexo
         })
-
+        
         res.status(200).json({
             ok: true,
             token: tokenUser,

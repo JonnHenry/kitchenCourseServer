@@ -10,7 +10,9 @@ class Server {
         this.app = express_1.default();
     }
     startServer() {
-        console.log(`Servidor funcionando en el puerto ${this.port}`);
+        this.app.listen(this.port, () => {
+            console.log(`Servidor funcionando en el puerto ${this.port}`);
+        });
     }
 }
 exports.default = Server;

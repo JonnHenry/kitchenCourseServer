@@ -54,6 +54,7 @@ userRoutes.post('login', (req, res) => {
         }
     });
 });
+//Sube la foto de un usuario
 userRoutes.post('/upload', [Autentication_1.verificaToken], (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     if (!req.files) {
         return res.status(400).json({
@@ -114,15 +115,16 @@ userRoutes.post('/upload', [Autentication_1.verificaToken], (req, res) => __awai
 //Registrar un usuario
 userRoutes.post('/create', (req, res) => {
     const body = req.body;
-    const user = {
+    const usuario = {
         nombre: body.nombre,
         avatar: body.avatar || body.sexo + '.png',
         email: body.email,
-        password: bcrypt_1.default.hashSync(req.body.password, 10),
+        password: bcrypt_1.default.hashSync(body.password, 10),
         celular: body.celular,
         sexo: body.sexo
     };
-    Usuario_model_1.Usuario.create(user).then(userDB => {
+    Usuario_model_1.Usuario.create(usuario).then(userDB => {
+        console.log(userDB);
         const tokenUser = Token_1.default.getJwtToken({
             nombre: userDB.nombre,
             _id: userDB._id,
