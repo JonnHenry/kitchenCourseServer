@@ -56,5 +56,18 @@ class FileSystem {
         }
         return pathFoto;
     }
+    getVideoClase(nombreVideo) {
+        var pathFoto = path_1.default.resolve(__dirname, '../../assets/clases/', nombreVideo);
+        try {
+            const existe = fs_1.default.existsSync(pathFoto);
+            if (!existe) {
+                pathFoto = '';
+            }
+            return pathFoto;
+        }
+        catch (err) {
+            return '';
+        }
+    }
 }
 exports.default = FileSystem;

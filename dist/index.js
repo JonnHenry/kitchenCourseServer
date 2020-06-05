@@ -24,6 +24,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 //Clases creadas
 const Server_1 = __importDefault(require("./Classes/Server"));
+const express_1 = __importDefault(require("express"));
+const path_1 = __importDefault(require("path"));
 //Dependencias externas de paquetes utilizadas
 const cors_1 = __importDefault(require("cors"));
 const body_parser_1 = __importDefault(require("body-parser"));
@@ -40,6 +42,7 @@ server.app.use(body_parser_1.default.urlencoded({ extended: true }));
 server.app.use(cors_1.default());
 server.app.use(body_parser_1.default.json());
 server.app.use(express_fileupload_1.default({ useTempFiles: false }));
+server.app.use(express_1.default.static(path_1.default.join(__dirname, 'public')));
 //Rutas de mi aplicacion
 server.app.use('/user', Users_1.default);
 server.app.use('/curso', Clases_1.default);

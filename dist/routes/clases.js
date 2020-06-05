@@ -16,6 +16,7 @@ const express_1 = require("express");
 const Clase_model_1 = require("../models/Clase.model");
 const Autentication_1 = require("../middlewares/Autentication");
 const FileSystem_1 = __importDefault(require("../Classes/FileSystem"));
+const fs_1 = __importDefault(require("fs"));
 const fileSystem = new FileSystem_1.default();
 const claseRoutes = express_1.Router();
 claseRoutes.get('/all', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -121,6 +122,57 @@ claseRoutes.post('/create', (req, res) => {
             mensaje: 'Verifique la información ingresada'
         });
     });
+});
+claseRoutes.get('/get/video/:video', (req, res) => {
+    try {
+        const paramVideo = req.params.video;
+        const path = fileSystem.getVideoClase(paramVideo);
+        var start = 0;
+        var end = 0;
+        if (path != '') {
+            const stat = fs_1.default.statSync(path);
+            const fileSize = stat.size;
+            const range = req.headers.range;
+            if (range) {
+                const parts = range.replace(/bytes=/, "").split("-");
+                start = parseInt(parts[0], 10);
+                end = parts[1] ? parseInt(parts[1], 10) : fileSize - 1;
+                if (start >= fileSize) {
+                    res.status(416).send('Requested range not satisfiable\n' + start + ' >= ' + fileSize);
+                    return;
+                }
+                const chunksize = (end - start) + 1;
+                const file = fs_1.default.createReadStream(path, { start, end });
+                const head = {
+                    'Content-Range': `bytes ${start}-${end}/${fileSize}`,
+                    'Accept-Ranges': 'bytes',
+                    'Content-Length': chunksize,
+                    'Content-Type': 'video/mp4',
+                };
+                res.writeHead(206, head);
+                file.pipe(res);
+            }
+            else {
+                const head = {
+                    'Content-Length': fileSize,
+                    'Content-Type': 'video/mp4',
+                };
+                res.writeHead(200, head);
+                var stream = fs_1.default.createReadStream(path)
+                    .on("open", function () {
+                    stream.pipe(res);
+                }).on("error", function (err) {
+                    res.status(404).end(err);
+                });
+            }
+        }
+        else {
+            res.status(404).end();
+        }
+    }
+    catch (error) {
+        res.status(404).end(error);
+    }
 });
 //Se envia en la url el nombre de la imagen de la clase
 claseRoutes.post('/get/img/:imagen', (req, res) => {

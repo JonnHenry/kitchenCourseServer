@@ -1,5 +1,7 @@
 //Clases creadas
 import Server from './Classes/Server'
+import express from 'express';
+import path from 'path'
 
 //Dependencias externas de paquetes utilizadas
 import cors from 'cors';
@@ -19,6 +21,7 @@ server.app.use(bodyParser.urlencoded({ extended: true }));
 server.app.use(cors());
 server.app.use(bodyParser.json());
 server.app.use(fileUpload({ useTempFiles: false }));
+server.app.use(express.static(path.join(__dirname, 'public')))
 
 //Rutas de mi aplicacion
 server.app.use('/user', userRoutes);
