@@ -1,0 +1,109 @@
+[{
+  "_id": {
+    "$oid": "5ed96f95537e644e54a681f1"
+  },
+  "descripcion": "En esta primera clase se muestran los principios fundamentales",
+  "calificacion": 0,
+  "id": 1,
+  "titulo": "Introducción",
+  "imagenClase": "clase_1.jpg",
+  "nombreVideo": "Clase_1.mp4",
+  "comentarios": [],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5ed9701d1563c61b5431b4d3"
+  },
+  "descripcion": "Aprenderemos los cortes básicos que se le dan a una papa en la cocina",
+  "calificacion": 0,
+  "id": 2,
+  "imagenClase": "clase_2.jpg",
+  "titulo": "Tipos de corte en una papa",
+  "nombreVideo": "Clase_2.mp4",
+  "comentarios": [],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5ed9707c1563c61b5431b4d4"
+  },
+  "descripcion": "Aprenderemos los cortes básicos que se le dan a una cebolla en la cocina",
+  "calificacion": 0,
+  "id": 3,
+  "titulo": "Tipos de corte de una cebolla",
+  "imagenClase": "clase_3.jpg",
+  "nombreVideo": "Clase_3.mp4",
+  "comentarios": [],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5ed970c21563c61b5431b4d5"
+  },
+  "descripcion": "En este video se puede ver cual es la forma correcta de cortar un pimiento",
+  "calificacion": 0,
+  "id": 4,
+  "imagenClase": "clase_4.jpg",
+  "titulo": "Cortes a un pimiento",
+  "nombreVideo": "Clase_4.mp4",
+  "comentarios": [],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5ed971161563c61b5431b4d6"
+  },
+  "descripcion": "Es una de las formas que en las que se puede deshuesar un pollo en piezas, para la prepación de los platos de comida",
+  "calificacion": 0,
+  "id": 5,
+  "imagenClase": "clase_5.png",
+  "titulo": "Deshuesar un pollo entero",
+  "nombreVideo": "Clase_5.mp4",
+  "comentarios": [],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5ed972d51563c61b5431b4d7"
+  },
+  "descripcion": "Se muestra algunos trucos para ablandar, que son utiles en la cocina",
+  "calificacion": 0,
+  "id": 6,
+  "titulo": "Ablandar la carne",
+  "imagenClase": "clase_6.jpg",
+  "nombreVideo": "Clase_6.mp4",
+  "comentarios": [],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5ed973131563c61b5431b4d8"
+  },
+  "descripcion": "Una hamburguesa al estilo Americano",
+  "calificacion": 0,
+  "id": 7,
+  "titulo": "Receta: Hamburguesa Americana",
+  "imagenClase": "clase_7.jpg",
+  "nombreVideo": "Clase_7.mp4",
+  "comentarios": [],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5ed973371563c61b5431b4d9"
+  },
+  "descripcion": "Se presenta una forma para hacer la masa basica de crepe",
+  "calificacion": 0,
+  "id": 8,
+  "titulo": "Receta: Masa basica de crepe",
+  "imagenClase": "clase_8.jpg",
+  "nombreVideo": "Clase_8.mp4",
+  "comentarios": [],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5ed973591563c61b5431b4da"
+  },
+  "descripcion": "Se prepara la los crepes rellenos de carne y su salsa de bechamel",
+  "calificacion": 0,
+  "id": 9,
+  "titulo": "Receta: Crepre relleno de carne",
+  "imagenClase": "clase_9.jpg",
+  "nombreVideo": "Clase_9.mp4",
+  "comentarios": [],
+  "__v": 0
+}]
