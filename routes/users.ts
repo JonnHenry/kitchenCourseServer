@@ -16,7 +16,7 @@ userRoutes.post('/login', (req: Request, res: Response) => {
     const body = req.body;
     Usuario.findOne({ email: body.email }, (err, userDB: IUsuario) => {
 
-        if (err || !userDB ||!userDB.habilitado) {
+        if (err || !userDB || !userDB.habilitado) {
             return res.status(401).json({
                 ok: false,
                 token: '',
@@ -51,9 +51,9 @@ userRoutes.post('/login', (req: Request, res: Response) => {
 });
 
 //Sube la foto de un usuario y se debe de actualiza el token
-userRoutes.post('/upload',[verificaToken],async (req: any, res: Response)=>{
+userRoutes.post('/upload', [verificaToken], async (req: any, res: Response) => {
 
-    if (!req.files){
+    if (!req.files) {
         return res.status(400).json({
             ok: false,
             token: '',
@@ -61,9 +61,9 @@ userRoutes.post('/upload',[verificaToken],async (req: any, res: Response)=>{
         });
     }
 
-    const file: FileUpload=req.files.image;
+    const file: FileUpload = req.files.image;
 
-    if (!file){
+    if (!file) {
         return res.status(400).json({
             ok: false,
             token: '',
@@ -71,12 +71,12 @@ userRoutes.post('/upload',[verificaToken],async (req: any, res: Response)=>{
         });
     }
 
-    if ( !file.mimetype.includes('image') ) {
+    if (!file.mimetype.includes('image')) {
         return res.status(400).json({
             ok: false,
             token: '',
             mensaje: 'Lo que subió no es una imagen'
-        }); 
+        });
     }
 
     const nombreAvatar = await fileSystem.guardarImagen(file, req.usuario._id, req.usuario.sexo)
@@ -109,7 +109,7 @@ userRoutes.post('/upload',[verificaToken],async (req: any, res: Response)=>{
 
             })
 
-            .catch(()=>{
+            .catch(() => {
                 return res.status(400).json({
                     ok: false,
                     token: '',
@@ -128,9 +128,9 @@ userRoutes.post('/create', (req: Request, res: Response) => {
 
     const usuario = {
         nombre: body.nombre,
-        avatar: body.avatar || body.sexo+'.png',
+        avatar: body.avatar || body.sexo + '.png',
         email: body.email,
-        password: bcrypt.hashSync(body.password,10),
+        password: bcrypt.hashSync(body.password, 10),
         celular: body.celular,
         sexo: body.sexo
     };
@@ -192,7 +192,7 @@ userRoutes.put('/update', verificaToken, (req: any, res: Response) => {
 
             })
 
-            .catch(()=>{
+            .catch(() => {
                 return res.status(400).json({
                     ok: false,
                     token: '',
@@ -205,12 +205,28 @@ userRoutes.put('/update', verificaToken, (req: any, res: Response) => {
 })
 
 
+userRoutes.get('/user', verificaToken, (req: any, res: Response) => {
+    try{
+        res.status(200).json({
+            ok: true,
+            usuario: req.usuario,
+            mensaje: 'El usuario ha accedido correctamente'
+        })
+    }catch(error){
+        res.status(404).json({
+            ok: false,
+            usuario: {},
+            mensaje: 'El usuario no se encuentra registrado'
+        })
+    }
+})
 
-userRoutes.delete('/delete',verificaToken,(req: Request, res: Response)=>{
+
+userRoutes.delete('/delete', verificaToken, (req: Request, res: Response) => {
     const body = req.body;
 
-    Usuario.update({email: body.email}, {habilitado: false}, function(err, userDB){
-        if (err || !userDB){
+    Usuario.update({ email: body.email }, { habilitado: false }, function (err, userDB) {
+        if (err || !userDB) {
             return res.status(500).json({
                 ok: false,
                 token: '',
@@ -225,11 +241,11 @@ userRoutes.delete('/delete',verificaToken,(req: Request, res: Response)=>{
     })
 });
 
-userRoutes.post('/allow',verificaToken,(req: Request, res: Response)=>{
+userRoutes.post('/allow', verificaToken, (req: Request, res: Response) => {
     const body = req.body;
 
-    Usuario.update({email: body.email}, {habilitado: true}, function(err, userDB){
-        if (err || !userDB){
+    Usuario.update({ email: body.email }, { habilitado: true }, function (err, userDB) {
+        if (err || !userDB) {
             return res.status(500).json({
                 ok: false,
                 token: '',
@@ -248,14 +264,14 @@ userRoutes.post('/allow',verificaToken,(req: Request, res: Response)=>{
 
 
 //Obtener una imagen de un usuario
-userRoutes.get('/imagen/avatar', verificaToken,(req: any, res: Response) => {
+userRoutes.get('/imagen/avatar', verificaToken, (req: any, res: Response) => {
 
     const userId = req.usuario._id;
-    const img    = req.usuario.avatar;
+    const img = req.usuario.avatar;
 
-    const pathFoto = fileSystem.getFotoUrl( userId, img, req.usuario.sexo );
-    
-    res.sendFile( pathFoto );
+    const pathFoto = fileSystem.getFotoUrl(userId, img, req.usuario.sexo);
+
+    res.sendFile(pathFoto);
 
 });
 
