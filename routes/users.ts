@@ -205,7 +205,7 @@ userRoutes.put('/update', verificaToken, (req: any, res: Response) => {
 })
 
 
-userRoutes.get('/user', verificaToken, (req: any, res: Response) => {
+userRoutes.get('/user/get', verificaToken, (req: any, res: Response) => {
     try{
         res.status(200).json({
             ok: true,
