@@ -183,7 +183,7 @@ userRoutes.put('/update', Autentication_1.verificaToken, (req, res) => {
         });
     });
 });
-userRoutes.get('/user', Autentication_1.verificaToken, (req, res) => {
+userRoutes.get('/user/get', Autentication_1.verificaToken, (req, res) => {
     try {
         res.status(200).json({
             ok: true,
