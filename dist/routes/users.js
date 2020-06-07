@@ -183,6 +183,22 @@ userRoutes.put('/update', Autentication_1.verificaToken, (req, res) => {
         });
     });
 });
+userRoutes.get('/user', Autentication_1.verificaToken, (req, res) => {
+    try {
+        res.status(200).json({
+            ok: true,
+            usuario: req.usuario,
+            mensaje: 'El usuario ha accedido correctamente'
+        });
+    }
+    catch (error) {
+        res.status(404).json({
+            ok: false,
+            usuario: {},
+            mensaje: 'El usuario no se encuentra registrado'
+        });
+    }
+});
 userRoutes.delete('/delete', Autentication_1.verificaToken, (req, res) => {
     const body = req.body;
     Usuario_model_1.Usuario.update({ email: body.email }, { habilitado: false }, function (err, userDB) {
