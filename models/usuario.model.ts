@@ -11,7 +11,7 @@ const usuarioSchema = new Schema({
     },
     avatar: {
         type: String,
-        default: 'user.png'
+        default: 'masculino.png'
     },
     email: {
         type: String,

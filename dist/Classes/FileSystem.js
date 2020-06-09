@@ -24,8 +24,9 @@ class FileSystem {
     }
     generarNombre(nombreOriginal, sexo) {
         const nombreArr = nombreOriginal.split('.');
+        const nuevoNombre = 'avatar';
         const extension = nombreArr[nombreArr.length - 1];
-        return `${sexo}.${extension}`;
+        return `${nuevoNombre}.${extension}`;
     }
     crearCarpetaUsuario(userId) {
         const pathUser = path_1.default.resolve(__dirname, '../uploads/users/', userId);
@@ -36,9 +37,20 @@ class FileSystem {
         return pathUser;
     }
     getFotoUrl(userId, img, sexo) {
-        const pathFoto = path_1.default.resolve(__dirname, '../uploads/users', userId, img);
-        const existe = fs_1.default.existsSync(pathFoto);
-        if (!existe) {
+        try {
+            const pathFoto = path_1.default.resolve(__dirname, '../uploads/users/', `${userId}`, `${img}`);
+            const existe = fs_1.default.existsSync(pathFoto);
+            if (!existe) {
+                if (sexo == 'masculino') {
+                    return path_1.default.resolve(__dirname, '../../assets/masculino.png');
+                }
+                else {
+                    return path_1.default.resolve(__dirname, '../../assets/femenino.png');
+                }
+            }
+            return pathFoto;
+        }
+        catch (e) {
             if (sexo == 'masculino') {
                 return path_1.default.resolve(__dirname, '../../assets/masculino.png');
             }
@@ -46,7 +58,6 @@ class FileSystem {
                 return path_1.default.resolve(__dirname, '../../assets/femenino.png');
             }
         }
-        return pathFoto;
     }
     getFotoClase(imgClase) {
         var pathFoto = path_1.default.resolve(__dirname, '../../assets/img_clases/', imgClase);

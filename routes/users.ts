@@ -93,7 +93,7 @@ userRoutes.post('/upload', [verificaToken], async (req: any, res: Response) => {
         userDB.avatar = nombreAvatar || req.usuario.avatar;
 
         userDB.save()
-            .then(() => {
+            .then((user) => {
                 const tokenUser = Token.getJwtToken({
                     nombre: userDB.nombre,
                     _id: userDB._id,
@@ -206,13 +206,13 @@ userRoutes.put('/update', verificaToken, (req: any, res: Response) => {
 
 
 userRoutes.get('/user/get', verificaToken, (req: any, res: Response) => {
-    try{
+    try {
         res.status(200).json({
             ok: true,
             usuario: req.usuario,
             mensaje: 'El usuario ha accedido correctamente'
         })
-    }catch(error){
+    } catch (error) {
         res.status(404).json({
             ok: false,
             usuario: {},
@@ -264,14 +264,35 @@ userRoutes.post('/allow', verificaToken, (req: Request, res: Response) => {
 
 
 //Obtener una imagen de un usuario
-userRoutes.get('/imagen/avatar', verificaToken, (req: any, res: Response) => {
+userRoutes.get('/imagen/avatar/:id', (req: any, res: Response) => {
 
-    const userId = req.usuario._id;
-    const img = req.usuario.avatar;
+    const userId = req.params.id;
+    console.log(userId)
 
-    const pathFoto = fileSystem.getFotoUrl(userId, img, req.usuario.sexo);
+    try{
+        Usuario.findOne({ _id: userId }, (err, userDB) => {
+            console.log(userDB)
+            if (err || !userDB) {
+                return res.status(200).json({
+                    ok: false,
+                    mensaje: 'El usuario no se encuentra registrado, verifique los datos'
+                });
+            }
+            const img: string = String(userDB.avatar);
+            const sexo: string = String(userDB.sexo) 
+            const pathFoto = fileSystem.getFotoUrl(userDB._id,img , sexo);
+            res.sendFile(pathFoto);
+        })
 
-    res.sendFile(pathFoto);
+    }catch(error){
+        return res.status(500).json({
+            ok: false,
+            mensaje: 'El usuario no se encuentra registrado, verifique los datos'
+        });
+
+    }
+    
+    
 
 });
 

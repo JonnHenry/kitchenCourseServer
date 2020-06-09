@@ -13,7 +13,7 @@ const usuarioSchema = new mongoose_1.Schema({
     },
     avatar: {
         type: String,
-        default: 'user.png'
+        default: 'masculino.png'
     },
     email: {
         type: String,

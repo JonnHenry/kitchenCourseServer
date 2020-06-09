@@ -89,7 +89,7 @@ userRoutes.post('/upload', [Autentication_1.verificaToken], (req, res) => __awai
         }
         userDB.avatar = nombreAvatar || req.usuario.avatar;
         userDB.save()
-            .then(() => {
+            .then((user) => {
             const tokenUser = Token_1.default.getJwtToken({
                 nombre: userDB.nombre,
                 _id: userDB._id,
@@ -234,10 +234,29 @@ userRoutes.post('/allow', Autentication_1.verificaToken, (req, res) => {
     });
 });
 //Obtener una imagen de un usuario
-userRoutes.get('/imagen/avatar', Autentication_1.verificaToken, (req, res) => {
-    const userId = req.usuario._id;
-    const img = req.usuario.avatar;
-    const pathFoto = fileSystem.getFotoUrl(userId, img, req.usuario.sexo);
-    res.sendFile(pathFoto);
+userRoutes.get('/imagen/avatar/:id', (req, res) => {
+    const userId = req.params.id;
+    console.log(userId);
+    try {
+        Usuario_model_1.Usuario.findOne({ _id: userId }, (err, userDB) => {
+            console.log(userDB);
+            if (err || !userDB) {
+                return res.status(200).json({
+                    ok: false,
+                    mensaje: 'El usuario no se encuentra registrado, verifique los datos'
+                });
+            }
+            const img = String(userDB.avatar);
+            const sexo = String(userDB.sexo);
+            const pathFoto = fileSystem.getFotoUrl(userDB._id, img, sexo);
+            res.sendFile(pathFoto);
+        });
+    }
+    catch (error) {
+        return res.status(500).json({
+            ok: false,
+            mensaje: 'El usuario no se encuentra registrado, verifique los datos'
+        });
+    }
 });
 exports.default = userRoutes;
