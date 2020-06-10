@@ -26,7 +26,7 @@ let Token = /** @class */ (() => {
         }
     }
     Token.seed = 'kitchenCourse';
-    Token.caducidad = '1h';
+    Token.caducidad = '2h';
     return Token;
 })();
 exports.default = Token;

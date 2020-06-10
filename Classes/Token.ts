@@ -5,7 +5,7 @@ import IUserPayload from '../interfaces/IUser.payload';
 export default class Token {
 
     private static seed: string = 'kitchenCourse';
-    private static caducidad: string = '1h';
+    private static caducidad: string = '2h';
 
     constructor() { }
 

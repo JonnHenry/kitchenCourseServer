@@ -187,7 +187,7 @@ claseRoutes.get('/get/video/:video', (req: Request, res: any) => {
 
 
 //Se envia en la url el nombre de la imagen de la clase
-claseRoutes.post('/get/img/:imagen', (req: Request, res: Response) => {
+claseRoutes.get('/get/img/:imagen', (req: Request, res: Response) => {
     const paramImagen = req.params.imagen;
     const pathFotoClase = fileSystem.getFotoClase(paramImagen);
     res.sendFile(pathFotoClase);

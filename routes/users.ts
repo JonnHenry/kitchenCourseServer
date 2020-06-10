@@ -17,7 +17,7 @@ userRoutes.post('/login', (req: Request, res: Response) => {
     Usuario.findOne({ email: body.email }, (err, userDB: IUsuario) => {
 
         if (err || !userDB || !userDB.habilitado) {
-            return res.status(401).json({
+            return res.status(200).json({
                 ok: false,
                 token: '',
                 mensaje: 'Usuario/contraseña no son correctos'
@@ -39,10 +39,10 @@ userRoutes.post('/login', (req: Request, res: Response) => {
                 mensaje: ''
             })
         } else {
-            return res.status(401).json({
+            return res.status(200).json({
                 ok: false,
                 token: '',
-                mensaje: 'Usuario/contraseña no son correctos ***'
+                mensaje: 'Usuario/contraseña no son correctos'
             });
 
         }
@@ -267,11 +267,9 @@ userRoutes.post('/allow', verificaToken, (req: Request, res: Response) => {
 userRoutes.get('/imagen/avatar/:id', (req: any, res: Response) => {
 
     const userId = req.params.id;
-    console.log(userId)
 
     try{
         Usuario.findOne({ _id: userId }, (err, userDB) => {
-            console.log(userDB)
             if (err || !userDB) {
                 return res.status(200).json({
                     ok: false,

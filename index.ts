@@ -17,8 +17,8 @@ dotenv.config();
 
 //Midleware
 const server = new Server(Number(process.env.PORT));
-server.app.use(bodyParser.urlencoded({ extended: true }));
 server.app.use(cors());
+server.app.use(bodyParser.urlencoded({ extended: true }));
 server.app.use(bodyParser.json());
 server.app.use(fileUpload({ useTempFiles: false }));
 server.app.use(express.static(path.join(__dirname, 'public')))
