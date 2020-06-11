@@ -48,7 +48,7 @@ claseRoutes.get('/clase/:id', (req, res) => __awaiter(void 0, void 0, void 0, fu
             .exec();
         res.status(200).json({
             ok: true,
-            clase,
+            clase: clase[0],
             mensaje: ''
         });
     }
@@ -66,6 +66,7 @@ claseRoutes.get('/clase/:id', (req, res) => __awaiter(void 0, void 0, void 0, fu
 //  comentario: comentario
 //  calificacion: calificacion Number !!Es la califcacion que el usuario ha dado    
 //}
+//Enviar un comentario al servidor para que los analise
 claseRoutes.post('/:idClase/comentario', Autentication_1.verificaToken, (req, res) => {
     const body = req.body;
     const idClase = req.params.idClase;

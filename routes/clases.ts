@@ -42,9 +42,8 @@ claseRoutes.get('/clase/:id', async (req: Request, res: Response) => {
 
         res.status(200).json({
             ok: true,
-            clase,
+            clase: clase[0],
             mensaje: ''
-
         })
     } catch (error) {
         res.status(500).json({
@@ -62,15 +61,16 @@ claseRoutes.get('/clase/:id', async (req: Request, res: Response) => {
 //  calificacion: calificacion Number !!Es la califcacion que el usuario ha dado    
 //}
 
-
+//Enviar un comentario al servidor para que los analise
 claseRoutes.post('/:idClase/comentario', verificaToken, (req: any, res: Response) => {
     const body = req.body;
     const idClase = req.params.idClase;
+    
     const usuarioComentario = {
         usuario: req.usuario._id,
         comentario: body.comentario,
     }
-
+    
     Clase.findOne({ id: idClase }, (err, claseDB) => {
         if (err || !claseDB) {
             return res.status(200).json({
